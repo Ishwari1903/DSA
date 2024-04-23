@@ -1,0 +1,40 @@
+
+import java.util.Arrays;
+
+public class ShellSort {
+
+    public static void main(String[] args) {
+        int[] array = {12, 34, 54, 2, 3};
+        System.out.println("Original Array: " + Arrays.toString(array));
+
+        shellSort(array);
+
+        System.out.println("Sorted Array: " + Arrays.toString(array));
+    }
+
+    // Shell Sort implementation using the hip or shell data structure
+    public static void shellSort(int[] array) {
+        int n = array.length;
+        int gap = n / 2;
+
+        // Start with a large gap, then reduce the gap until it becomes 1
+        while (gap > 0) {
+            // Perform a gapped insertion sort for this gap size
+            for (int i = gap; i < n; i++) {
+                int temp = array[i];
+                int j = i;
+
+                // Shift elements of array[0..i-gap], array[1..i-2*gap], array[2..i-3*gap], etc.
+                // until the correct location for array[i] is found
+                while (j >= gap && array[j - gap] > temp) {
+                    array[j] = array[j - gap];
+                    j -= gap;
+                }
+                // Place temp (the original array[i]) at its correct position
+                array[j] = temp;
+            }
+            // Reduce the gap for the next iteration
+            gap /= 2;
+        }
+    }
+}
